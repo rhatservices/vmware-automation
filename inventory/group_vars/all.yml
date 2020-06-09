@@ -8,5 +8,14 @@ vcenter_password: !vault |
           6636383036643564350a653366336631306236323661303631663839343764646332386539363766
           3366
 vcenter_datacenter: stderr
-cluster_name: nuc
+vcenter_folder: "/Linux"
+vcenter_cluster_name: nuc
+vcenter_template: rhel8
 validate_certs: no
+
+dns_servers:
+  - 10.0.0.138
+dns_suffix:
+  - lan.stderr.at
+
+dns_domain: lan.stderr.at
