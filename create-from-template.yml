@@ -2,30 +2,47 @@
 - name: Create a VM from a template
   hosts: localhost
   gather_facts: no
+  collections:
+    - community.vmware
   become: no
-  tasks:
-  - name: Clone the template
-    vmware_guest:
-      hostname: "{{ vcenter_hostname }}"
-      username: "{{ vcenter_username }}"
-      password: "{{ vcenter_password }}"
-      validate_certs: False
-      name: testvm
-      template: rhel8-cust
-      datacenter: "{{ vcenter_datacenter }}"
-      folder: /Linux
-      state: poweredon
-      cluster: "{{ cluster_name }}"
-      networks:
-        - name: VM Network
-          ip: 192.168.10.11
-          netmask: 255.255.255.0
-      wait_for_ip_address: True
-      customization:
-        domain: "lan.stderr.at"
-        dns_servers:
-          - 8.9.9.9
-          - 7.8.8.9
-        dns_suffix:
-          - example.com
-          - example2.com
+  roles:
+    - role: create-vm
+      vars:
+        vms:
+          - name: testvm01
+            ipaddr: 10.0.0.142
+            netmask: 255.255.255.0
+            dns_domain: lan.stderr.at
+            dns_servers:
+              - 10.0.0.254
+              - 8.8.8.8
+            dns_suffix:
+              - lan.stderr.at
+              - stderr.at
+  # tasks:
+  # - name: Clone the template
+  #   vmware_guest:
+  #     hostname: "{{ vcenter_hostname }}"
+  #     validate_certs: False
+  #     username: "{{ vcenter_username }}"
+  #     password: "{{ vcenter_password }}"
+  #     cluster: "{{ vcenter_cluster_name }}"
+  #     template: "{{ vcenter_template }}"
+  #     datacenter: "{{ vcenter_datacenter }}"
+  #     folder: "{{ vcenter_folder }}"
+  #     name: "{{ vmname }}"
+  #     state: "{{ vm_powerstate | default('poweredon')}}"
+  #     networks:
+  #       - name: VM Network
+  #         ip: "{{ vm_ipaddress }}"
+  #         netmask: "{{ vm_netmask }}"
+  #     wait_for_ip_address: "{{ vm_wait_for_ip | default('yes')}}"
+  #     customization:
+  #       domain: "{{ dns_domain }}"
+  #       dns_servers: "{{ dns_servers }}"
+  #       dns_suffix: "{{ dns_suffix }}"
+
+
+
+# - name: Try to ping the new vm
+#   hosts:

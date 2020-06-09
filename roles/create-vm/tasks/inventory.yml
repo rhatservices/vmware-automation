@@ -1,0 +1,7 @@
+- name: Create a inventory files for vms
+  template:
+    src: inventory_host.j2
+    dest: "inventory/{{ vm.name }}"
+  loop: "{{ vms }}"
+  loop_control:
+    loop_var: vm

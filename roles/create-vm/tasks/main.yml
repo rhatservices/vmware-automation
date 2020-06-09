@@ -1,0 +1,27 @@
+---
+- name: Clone the template
+  vmware_guest:
+    hostname: "{{ vcenter_hostname }}"
+    validate_certs: False
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    cluster: "{{ vcenter_cluster_name }}"
+    template: "{{ vcenter_template }}"
+    datacenter: "{{ vcenter_datacenter }}"
+    folder: "{{ vcenter_folder }}"
+    name: "{{ vm.name }}"
+    state: "{{ vm.powerstate | default('poweredon')}}"
+    networks:
+      - name: VM Network
+        ip: "{{ vm.ipaddr }}"
+        netmask: "{{ vm.netmask }}"
+    wait_for_ip_address: "{{ vm.wait_for_ip | default('yes')}}"
+    customization:
+      domain: "{{ vm.dns_domain }}"
+      dns_servers: "{{ vm.dns_servers }}"
+      dns_suffix: "{{ vm.dns_suffix }}"
+  loop: "{{ vms }}"
+  loop_control:
+    loop_var: vm
+
+- include_tasks: inventory.yml
