@@ -1,0 +1,16 @@
+- name: Example for gathering information
+  hosts: localhost
+  gather_facts: no
+  become: false
+  tasks:
+    - name: Gather cluster info from given datacenter
+      community.vmware.vmware_cluster_info:
+        hostname: '{{ vcenter_hostname }}'
+        username: '{{ vcenter_username }}'
+        password: '{{ vcenter_password }}'
+        datacenter: '{{ vcenter_datacenter }}'
+        validate_certs: no
+      register: cluster_info
+
+    - debug:
+        msg: "{{ cluster_info }}"

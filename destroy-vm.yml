@@ -1,0 +1,17 @@
+---
+- name: Delete a vm
+  hosts: localhost
+  gather_facts: no
+  become: no
+  tasks:
+  - name: Delete testvm
+    vmware_guest:
+      hostname: "{{ vcenter_hostname }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      validate_certs: False
+      name: testvm
+      datacenter: "{{ vcenter_datacenter }}"
+      folder: /Linux
+      state: absent
+      cluster: "{{ cluster_name }}"

@@ -1,0 +1,31 @@
+---
+- name: Create a VM from a template
+  hosts: localhost
+  gather_facts: no
+  become: no
+  tasks:
+  - name: Clone the template
+    vmware_guest:
+      hostname: "{{ vcenter_hostname }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      validate_certs: False
+      name: testvm
+      template: rhel8-cust
+      datacenter: "{{ vcenter_datacenter }}"
+      folder: /Linux
+      state: poweredon
+      cluster: "{{ cluster_name }}"
+      networks:
+        - name: VM Network
+          ip: 192.168.10.11
+          netmask: 255.255.255.0
+      wait_for_ip_address: True
+      customization:
+        domain: "lan.stderr.at"
+        dns_servers:
+          - 8.9.9.9
+          - 7.8.8.9
+        dns_suffix:
+          - example.com
+          - example2.com
