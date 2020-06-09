@@ -11,7 +11,8 @@ vcenter_datacenter: stderr
 vcenter_folder: "/Linux"
 vcenter_cluster_name: nuc
 vcenter_template: rhel8
-validate_certs: no
+vcenter_datastore: datastore1
+vcenter_validate_certs: no
 
 dns_servers:
   - 10.0.0.138
