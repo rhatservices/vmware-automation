@@ -72,3 +72,11 @@ Here is an example play for creating two test vms
               - stderr.at
 ```
 
+## Dependencies
+
+The following python modules must be installed
+
+- [pyvmomi](https://github.com/vmware/pyvmomi) in a version matching your vSphere version
+- [vsphere-automation-sdk-python](https://github.com/vmware/vsphere-automation-sdk-python.git) if you want to try using vmwware_vm_inventory
+
+
