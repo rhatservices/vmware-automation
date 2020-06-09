@@ -77,6 +77,11 @@ Here is an example play for creating two test vms
 The following python modules must be installed
 
 - [pyvmomi](https://github.com/vmware/pyvmomi) in a version matching your vSphere version
-- [vsphere-automation-sdk-python](https://github.com/vmware/vsphere-automation-sdk-python.git) if you want to try using vmwware_vm_inventory
+- [vsphere-automation-sdk-python](https://github.com/vmware/vsphere-automation-sdk-python.git) if you want to try using vmware_vm_inventory
+
+The following ansible collections are required
+
+- [community.vmware](https://galaxy.ansible.com/community/vmware)
+
 
 
