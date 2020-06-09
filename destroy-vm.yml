@@ -1,10 +1,10 @@
 ---
-- name: Delete a vm
+- name: Destroy a vm
   hosts: localhost
   gather_facts: no
   become: no
   tasks:
-  - name: Delete testvm
+  - name: Destroying vm {{ vmname }}
     vmware_guest:
       hostname: "{{ vcenter_hostname }}"
       validate_certs: False
