@@ -7,11 +7,12 @@
   - name: Delete testvm
     vmware_guest:
       hostname: "{{ vcenter_hostname }}"
+      validate_certs: False
       username: "{{ vcenter_username }}"
       password: "{{ vcenter_password }}"
-      validate_certs: False
-      name: testvm
+      cluster: "{{ vcenter_cluster_name }}"
+      name: "{{ vmname }}"
       datacenter: "{{ vcenter_datacenter }}"
-      folder: /Linux
+      folder: "{{ vcenter_folder | default(omit) }}"
       state: absent
-      cluster: "{{ cluster_name }}"
+      force: yes
