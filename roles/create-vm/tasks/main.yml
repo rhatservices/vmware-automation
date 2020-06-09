@@ -2,7 +2,7 @@
 - name: Clone the template
   vmware_guest:
     hostname: "{{ vcenter_hostname }}"
-    validate_certs: False
+    validate_certs: "{{vcenter_validate_certs }}"
     username: "{{ vcenter_username }}"
     password: "{{ vcenter_password }}"
     cluster: "{{ vcenter_cluster_name }}"
@@ -11,6 +11,13 @@
     folder: "{{ vcenter_folder }}"
     name: "{{ vm.name }}"
     state: "{{ vm.powerstate | default('poweredon')}}"
+    hardware:
+      memory_mb: "{{ vm.memory_mb | default(2048)}}"
+      num_cpus: "{{ vm.cpus | default(1)}}"
+    disk:
+      - size_gb: "{{ vm.disk_size_gb | default(16)}}"
+        type: thin
+        datastore: "{{ vcenter_datastore }}"
     networks:
       - name: VM Network
         ip: "{{ vm.ipaddr }}"
